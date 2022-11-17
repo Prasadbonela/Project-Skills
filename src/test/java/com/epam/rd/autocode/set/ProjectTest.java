@@ -11,13 +11,13 @@ class ProjectTest {
 
 	@Test
 	void test1() {
-		Project project = new Project(new Role(Position.P1, Level.L1, Skill.S1, Skill.S2),
-				new Role(Position.P2, Level.L2, Skill.S1, Skill.S2, Skill.S3),
-				new Role(Position.P3, Level.L3, Skill.S4, Skill.S5), new Role(Position.P3, Level.L3, Skill.S5));
+		Project project = new Project(new Role(Position.DEVELOPER, Level.A1, Skill.JAVA, Skill.DATABASE),
+				new Role(Position.KEY_DEVELOPER, Level.A2, Skill.JAVA, Skill.DATABASE, Skill.SPRING),
+				new Role(Position.TESTER, Level.A3, Skill.TESTING_TOOLS, Skill.AWS), new Role(Position.TESTER, Level.A3, Skill.AWS));
 
-		Set<Member> team = new HashSet<>(Arrays.asList(new Member("Name1", Level.L1, Skill.S1, Skill.S2),
-				new Member("Name2", Level.L2, Skill.S1, Skill.S2, Skill.S3),
-				new Member("Name3", Level.L3, Skill.S4, Skill.S5), new Member("Name4", Level.L3, Skill.S4)));
+		Set<Member> team = new HashSet<>(Arrays.asList(new Member("Name1", Level.A1, Skill.JAVA, Skill.DATABASE),
+				new Member("Name2", Level.A2, Skill.JAVA, Skill.DATABASE, Skill.SPRING),
+				new Member("Name3", Level.A3, Skill.TESTING_TOOLS, Skill.AWS), new Member("Name4", Level.A3, Skill.TESTING_TOOLS)));
 
 		int expected = 87;
 		int actual = project.getConformity(team);
@@ -26,12 +26,12 @@ class ProjectTest {
 
 	@Test
 	void test2() {
-		Project project = new Project(new Role(Position.P1, Level.L1, Skill.S1, Skill.S2),
-				new Role(Position.P3, Level.L3, Skill.S4, Skill.S5), new Role(Position.P3, Level.L3, Skill.S5));
+		Project project = new Project(new Role(Position.DEVELOPER, Level.A1, Skill.JAVA, Skill.DATABASE),
+				new Role(Position.TESTER, Level.A3, Skill.TESTING_TOOLS, Skill.AWS), new Role(Position.TESTER, Level.A3, Skill.AWS));
 
-		Set<Member> team = new HashSet<>(Arrays.asList(new Member("Name1", Level.L1, Skill.S1, Skill.S2),
-				new Member("Name2", Level.L2, Skill.S1, Skill.S2, Skill.S3),
-				new Member("Name3", Level.L3, Skill.S4, Skill.S5)));
+		Set<Member> team = new HashSet<>(Arrays.asList(new Member("Name1", Level.A1, Skill.JAVA, Skill.DATABASE),
+				new Member("Name2", Level.A2, Skill.JAVA, Skill.DATABASE, Skill.SPRING),
+				new Member("Name3", Level.A3, Skill.TESTING_TOOLS, Skill.AWS)));
 
 		int expected = 80;
 		int actual = project.getConformity(team);
@@ -40,12 +40,12 @@ class ProjectTest {
 
 	@Test
 	void test3() {
-		Project project = new Project(new Role(Position.P1, Level.L1, Skill.S1),
-				new Role(Position.P2, Level.L2, Skill.S1), new Role(Position.P3, Level.L3, Skill.S4),
-				new Role(Position.P3, Level.L3, Skill.S5));
+		Project project = new Project(new Role(Position.DEVELOPER, Level.A1, Skill.JAVA),
+				new Role(Position.KEY_DEVELOPER, Level.A2, Skill.JAVA), new Role(Position.TESTER, Level.A3, Skill.TESTING_TOOLS),
+				new Role(Position.TESTER, Level.A3, Skill.AWS));
 
-		Set<Member> team = new HashSet<>(Arrays.asList(new Member("Name1", Level.L1, Skill.S1, Skill.S2),
-				new Member("Name2", Level.L2, Skill.S1, Skill.S2), new Member("Name4", Level.L3, Skill.S4)));
+		Set<Member> team = new HashSet<>(Arrays.asList(new Member("Name1", Level.A1, Skill.JAVA, Skill.DATABASE),
+				new Member("Name2", Level.A2, Skill.JAVA, Skill.DATABASE), new Member("Name4", Level.A3, Skill.TESTING_TOOLS)));
 
 		int expected = 75;
 		int actual = project.getConformity(team);
@@ -54,9 +54,9 @@ class ProjectTest {
 
 	@Test
 	void test4() {
-		Project project = new Project(new Role(Position.P1, Level.L1, Skill.S1));
+		Project project = new Project(new Role(Position.DEVELOPER, Level.A1, Skill.JAVA));
 
-		Set<Member> team = new HashSet<>(Arrays.asList(new Member("Name1", Level.L1, Skill.S1, Skill.S1)));
+		Set<Member> team = new HashSet<>(Arrays.asList(new Member("Name1", Level.A1, Skill.JAVA, Skill.JAVA)));
 
 		int expected = 100;
 		int actual = project.getConformity(team);
@@ -65,7 +65,7 @@ class ProjectTest {
 
 	@Test
 	void test5() {
-		Project project = new Project(new Role(Position.P1, Level.L1, Skill.S1));
+		Project project = new Project(new Role(Position.DEVELOPER, Level.A1, Skill.JAVA));
 
 		Set<Member> team = new HashSet<>();
 
@@ -76,11 +76,11 @@ class ProjectTest {
 
 	@Test
 	void test6() {
-		Project project = new Project(new Role(Position.P1, Level.L1, Skill.S1, Skill.S2),
-				new Role(Position.P3, Level.L3, Skill.S4, Skill.S5), new Role(Position.P3, Level.L3, Skill.S5));
+		Project project = new Project(new Role(Position.DEVELOPER, Level.A1, Skill.JAVA, Skill.DATABASE),
+				new Role(Position.TESTER, Level.A3, Skill.TESTING_TOOLS, Skill.AWS), new Role(Position.TESTER, Level.A3, Skill.AWS));
 
-		Set<Member> team = new HashSet<>(Arrays.asList(new Member("Name1", Level.L1, Skill.S1, Skill.S2),
-				new Member("Name4", Level.L3, Skill.S4)));
+		Set<Member> team = new HashSet<>(Arrays.asList(new Member("Name1", Level.A1, Skill.JAVA, Skill.DATABASE),
+				new Member("Name4", Level.A3, Skill.TESTING_TOOLS)));
 
 		int expected = 60;
 		int actual = project.getConformity(team);

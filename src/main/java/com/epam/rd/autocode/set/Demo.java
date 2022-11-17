@@ -8,16 +8,16 @@ public class Demo {
 	
 	public static void main(String[] args) {
 		Project project = new Project(
-			new Role(Position.P1, Level.L1, Skill.S1, Skill.S2),
-			new Role(Position.P2, Level.L2, Skill.S1, Skill.S2, Skill.S3),
-			new Role(Position.P3, Level.L3, Skill.S4, Skill.S5),
-			new Role(Position.P3, Level.L3, Skill.S5));
+			new Role(Position.DEVELOPER, Level.A1, Skill.JAVA, Skill.DATABASE),
+			new Role(Position.KEY_DEVELOPER, Level.A2, Skill.JAVA, Skill.DATABASE, Skill.SPRING),
+			new Role(Position.TESTER, Level.A3, Skill.TESTING_TOOLS, Skill.AWS),
+			new Role(Position.TESTER, Level.A3, Skill.AWS));
 		
 		Set<Member> team = new HashSet<>(Arrays.asList(
-			new Member("Name1", Level.L1, Skill.S1, Skill.S2),
-			new Member("Name2", Level.L2, Skill.S1, Skill.S2, Skill.S3),
-			new Member("Name3", Level.L3, Skill.S4, Skill.S5),
-			new Member("Name4", Level.L3, Skill.S4)));
+			new Member("Name1", Level.A1, Skill.JAVA, Skill.DATABASE),
+			new Member("Name2", Level.A2, Skill.JAVA, Skill.DATABASE, Skill.SPRING),
+			new Member("Name3", Level.A3, Skill.TESTING_TOOLS, Skill.AWS),
+			new Member("Name4", Level.A3, Skill.TESTING_TOOLS)));
 
 		System.out.println(project.getConformity(team));
 	}

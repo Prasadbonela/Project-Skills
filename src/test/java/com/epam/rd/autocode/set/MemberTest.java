@@ -9,7 +9,7 @@ class MemberTest {
 
 	@Test
 	void test1() {
-		Member m = new Member("Name1", Level.L1, Skill.S1);
+		Member m = new Member("Name1", Level.A1, Skill.JAVA);
 		Class<?> expected = EnumSet.class;
 		Class<?> actual = m.getSkills().getClass().getSuperclass();
 		Assertions.assertEquals(expected, actual);
@@ -17,7 +17,7 @@ class MemberTest {
 
 	@Test
 	void test2() {
-		Member m = new Member("Name2", Level.L1, Skill.S1, Skill.S2, Skill.S3);
+		Member m = new Member("Name2", Level.A1, Skill.JAVA, Skill.DATABASE, Skill.SPRING);
 		Class<?> expected = EnumSet.class;
 		Class<?> actual = m.getSkills().getClass().getSuperclass();
 		Assertions.assertEquals(expected, actual);

@@ -9,7 +9,7 @@ class RoleTest {
 
 	@Test
 	void test1() {
-		Role r = new Role(Position.P1, Level.L1, Skill.S1);
+		Role r = new Role(Position.DEVELOPER, Level.A1, Skill.JAVA);
 		Class<?> expected = EnumSet.class;
 		Class<?> actual = r.getSkills().getClass().getSuperclass();
 		Assertions.assertEquals(expected, actual);
@@ -17,7 +17,7 @@ class RoleTest {
 
 	@Test
 	void test2() {
-		Role r = new Role(Position.P1, Level.L1, Skill.S1, Skill.S2, Skill.S3);
+		Role r = new Role(Position.DEVELOPER, Level.A1, Skill.JAVA, Skill.DATABASE, Skill.SPRING);
 		Class<?> expected = EnumSet.class;
 		Class<?> actual = r.getSkills().getClass().getSuperclass();
 		Assertions.assertEquals(expected, actual);
