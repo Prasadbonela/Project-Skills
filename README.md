@@ -2,7 +2,7 @@
 
 The purpose of this exercise is to train you to use containers of type of Set.  
 
-Duration _60 minutes_.
+Duration: **1 hour**
 
 ## Description
 
