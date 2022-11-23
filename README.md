@@ -1,72 +1,90 @@
 # Project skills
 
-The purpose of this exercise is to train you to use containers of type of Set.  
+The purpose of this exercise is to train you to use collections of the Set type.  
 
 Duration: **1 hour**
 
 ## Description
 
-There is a `Project`, every project has roles.  
-Every `Role` has a `Level`, a position and required skills as `Set<Skill>` (use `EnumSet` as an implementation).  
+In this task, you need to determine the percentage of compliance of a certain team with the project's requirements. In other words, determine whether the team is suitable for participating in the project. 
+You have the following description:  
+* The `Position` enum that defines a set of positions
+*	The `Skill` enum that defines a set of skills 
+*	The `Level` enum that defines a set of skill levels
+*	The `Member` class that defines a team member. Each member has a name, a level, and a set of skills (a collection of the `Set<Skill>` type, implemented as `EnumSet<Skill>`). The team is described as a set of members in the form of the HashSet<Member>.
+*	The `Role` class that defines the role of the participant in the project. Each role has a level, a position, and required skills (a collection of the `Set<Skill>` type, implemented as an `EnumSet<Skill>`).
+*	The `Project` class that defines the project and contains its description and a list of roles.
+*	The `Project.Entry` class that combines a skill and its level and is used in the algorithm for calculating the team's compliance with the project.
 
-There is also a team as `Set<Member>` (use `HashSet` as an implementation).  
-Every `Member` has a name, a `Level` and skills as `Set<Skill>` (use `EnumSet<Skill>` as an implementation).  
-You have to determine a percentage of a conformity of the team and skills of the project.  
+Now, please proceed to the `Member` class and implement its content:
+* `public Member(String name, Level level, Skill... skills)`   
+   Creates a member with the specified name, level, and skills
+* `Getters`  
+   Return values of the appropriate fields
 
-It is necessary to use the following algorithm to do it:  
+Now, please proceed to the Role class and implement its content:  
+* `public Role(Position position, Level level, Skill... skills)`   
+   Creates a role with the specified position, level, and skills
+* `Getters`  
+   Return values of the appropriate fields  
 
-(1) Generate a **projectEntries** list of pairs _<Level, Skill>_ for project's roles.
+Now, please proceed to the Project class and implement its content:
+* `public Project(Role... roles)`    
+   Creates a project with the specified roles
+* `public List<Role> getRoles()`  
+   Returns a list of roles
+* `public int getConformity(Set<Member> team)`  
+   Returns the percentage of compliance of the team and project requirements
+* `private static class Entry {}`  
+   Describes an entry containing a level/skill pair
 
-For a example, if a project has roles:
-`R1` which has a level `L1` and skills `S1`, `S2`;
-`R2` which has a level `L1` and skills `S2`;
-`R3` which has a level `L2` and skills `S2`, `S3`, `S4`.
+### Details:
+* The `Entry` class must implement the equals and `hashCode` methods. Two entries are considered equal if and only if they have the same skill and its level.
+* To calculate the percentage of team compliance with project requirements, you must use the following algorithm:
+   -	Generate a list of pairs `<Level, Skill>` for the project's roles (e.g., named projectEntries).
+   -	Save the size of this list to a variable (e.g., size)
+   -	Generate a list of pairs `<Level, Skill>` for the team's members (e.g., named teamEntries).
+   -	Remove common elements from both lists.
+   -	Calculate the compliance percentage as follows: 
+        * subtract the current size of the entries list for the project roles from the original  
+        * multiply the result of the subtraction by 100  
+        * divide by the original size of the entries list of the project roles  
 
-Then the list of paris will be: 
-projectEntries = **[<L1, S1>, <L1, S2>, <L1, S2>, <L2, S2>, <L2, S3>, <L2, S4>]**
 
-(2) Generate a **teamEntries** list of pairs _<Level, Skill>_ for team's members.
+## Restrictions
+You may not: 
+* Add extra fields to a classes
+* Add extra methods to a classes
+* Use lambdas or streams when implementing this task
 
-For a example, if a team has members:
-`M1` which has a level `L1` and skills `S1`, `S2`;
-`M2` which has a level `L2` and skills `S1`.
+## Example:
+1. Let's say the project has the following roles:
+```
+•	DEVELOPER which has the A1 level and the JAVA, DATABASE skills 
+•	KEY_DEVELOPER which has the A3 level and the JAVA, DATABASE, SPRING skills 
+•	TESTER which has the A2 level and the JAVA, SPRING, TESTING_TOOLS skills
+```
+Then the list of pairs will be:
+```
+projectEntries → [<A1, JAVA>, <A1, DATABASE>, <A3, JAVA>, <A3, DATABASE>, <A3, SPRING>, <A2, JAVA>, <A2, SPRING>, <A2, TESTING_TOOLS>]
+```
+And the list size is 8.
 
-Then the list of paris will be:
-teamEntries = **[<L1, S1>, <L1, S2>, <L2, S1>]**
+2. Let's say the team has the following members:
+```
+•	Member1 which has the A1 level and the JAVA, SPRING skills 
+•	Member2 which has the A2 and the JAVA, DATABASE, SPRING skills
+```
+Then the list of pairs will be:
+```
+teamEntries → [<A1, JAVA>, <A1, SPRING>, <A2, JAVA>, <A2, DATABASE>, <A2, SPRING>]
+```
 
-(3) Save the size of the list (1)
+3. Let's remove the common elements in both lists and get the following result:
+```
+projectEntries → [<A1, DATABASE>, <A3, JAVA>, <A3, DATABASE>, <A3, SPRING>, <A2, TESTING_TOOLS>]
+teamEntries → [<A1, SPRING>, <A2, DATABASE>]
+```
+Then the new size of the projectEntries list is 5.
 
-size = 6
-
-(4) Remove from the list (1) and (2) all the common elements:
-
-projectEntries = [<L1, S2>, <L2, S2>, <L2, S3>, <L2, S4>]
-teamEntries = [<L2, S1>]
-
-The result can be calculated by the following formula: 
-**(size - projectEntries.size()) * 100 / size**
-
-For the example above this value is (6 - 4) * 100 / 6 = 33%
-
-Please, proceed to `Member` class and implement its content:  
-
-* `public Member(String name, Level level, Skill... skills)` creates a member with the specified name, level and skills;
-
-* `getName/getLevel/getSkills` returns a value of the appropriate field.
-
-Proceed to `Role` class and implement its content:  
-
-* `public Role(Position position, Level level, Skill... skills)` creates a role with the specified position, level and skills;
-
-* `getPosition/getLevel/getSkills` returns a value of the appropriate field.
-
-Proceed to `Project` class and implement its content:  
-
-* `public Project(Role... roles)` creates a project with the specified roles;
-
-* `public int getConformity(Set<Member> team)` returns a percentage of a conformity of the team and skills of the project;
-
-* `private static class Entry` a structure to create entries of <level, skill>;
-
-> Class `Entry` must have a properly implemented methods `equals` and `hashCode`. Two entries are equaled if and only if they have the same level and skill.
-
+4. Let's calculate the compliance percentage and get the result equal to 37.5%.
