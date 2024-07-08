@@ -1,17 +1,24 @@
 package com.epam.rd.autocode.set;
 
+
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
+import static java.util.Arrays.asList;
 
 public class Member {
-	private String name;
-	private Level level;
-	private Set<Skill> skills;
+
+	private final String name;
+
+	private final Level level;
+
+	private final Set<Skill> skills;
 
 	public Member(String name, Level level, Skill... skills) {
+
 		this.name = name;
 		this.level = level;
-		this.skills = EnumSet.of(skills[0], skills); // Use EnumSet for efficient set operations
+		this.skills = EnumSet.copyOf(Arrays.asList(skills));
 	}
 
 	public String getName() {
@@ -25,4 +32,5 @@ public class Member {
 	public Set<Skill> getSkills() {
 		return skills;
 	}
+
 }

@@ -1,28 +1,34 @@
 package com.epam.rd.autocode.set;
-
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
+import static java.util.Arrays.asList;
 
 public class Role {
-	private Position position;
-	private Level level;
-	private Set<Skill> skills;
+
+	private final Level level;
+
+	private final Position position;
+
+	private final Set<Skill> skills;
 
 	public Role(Position position, Level level, Skill... skills) {
+
 		this.position = position;
 		this.level = level;
-		this.skills = EnumSet.of(skills[0], skills); // Use EnumSet for efficient set operations
+		this.skills = EnumSet.copyOf(Arrays.asList(skills));
+
 	}
 
-	public Position getPosition() {
-		return position;
+	public Set<Skill> getSkills() {
+		return skills;
 	}
 
 	public Level getLevel() {
 		return level;
 	}
 
-	public Set<Skill> getSkills() {
-		return skills;
+	public Position getPosition() {
+		return position;
 	}
 }
